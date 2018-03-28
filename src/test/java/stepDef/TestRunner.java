@@ -2,10 +2,11 @@ package stepDef;
 
 import org.junit.runner.RunWith;
 
+import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@Cucumber.Options(format={"html:output"})
+@CucumberOptions(plugin={"html:target/cucumber-html-report"})
 
 
 public class TestRunner {

@@ -13,7 +13,4 @@ public class LandingPage {
 
 	@FindBy(how=How.XPATH,using="//a[contains(text(),'SpiceCash/SpiceClub Members')]/ancestor::li[1]//a[contains(text(),'Member Login')]")
 	public static WebElement memberLogin;
-
-	@FindBy(how=How.ID, using="highlight-addons")
-	public static WebElement menu;
 }

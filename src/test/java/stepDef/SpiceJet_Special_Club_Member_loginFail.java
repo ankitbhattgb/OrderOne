@@ -1,12 +1,9 @@
 package stepDef;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
+
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -46,10 +43,7 @@ public class SpiceJet_Special_Club_Member_loginFail
 	public void user_is_onlandingpage() 
 	{
 		driver.get("http://spicejet.com");	
-		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(src, new File("C:\\CaptureScreenshot\\google.jpg"));
 	}
-
 	@When("^user hovers on Login$")
 	public void user_hovers_on_Login()
 	{

@@ -20,5 +20,14 @@ public class LoginPage {
 	
 	@FindBy(how=How.XPATH, using="//span[contains(text(),'Welcome')]")
 	public static WebElement msg;
-
+	
+	@FindBy(how=How.XPATH, using="//div[contains(text(),'ALERT')]")
+	public static WebElement alertMsg;
+	
+	@FindBy(how=How.XPATH,using="//a[contains(text(),'Log Out')][1]")
+	public static WebElement logout;
+	
+	@FindBy(how=How.ID, using="Login")
+	public static WebElement Login;
 }
+

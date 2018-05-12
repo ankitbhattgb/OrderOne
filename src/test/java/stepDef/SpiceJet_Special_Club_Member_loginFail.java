@@ -1,12 +1,15 @@
 package stepDef;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.List;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.logging.log4j.core.util.FileUtils;
 import org.junit.Assert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 
 import cucumber.api.java.After;
@@ -18,7 +21,7 @@ import pageObjects.LandingPage;
 import pageObjects.LoginPage;
 import resources.base;
 
-public class SpiceJet_Special_Club_Member_login 
+public class SpiceJet_Special_Club_Member_loginFail 
 {
 
 	public WebDriver driver;
@@ -44,15 +47,16 @@ public class SpiceJet_Special_Club_Member_login
 	@Given("^user is on landing page of spice jet$")
 	public void user_is_onlandingpage() 
 	{
-		driver.get("http://spicejet.com");		
-
+		driver.get("http://spicejet.com");	
+		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
+		FileUtils.copyFile(src, new File("C:\\CaptureScreenshot\\google.jpg"));
 	}
 
 	@When("^user hovers on Login$")
 	public void user_hovers_on_Login()
 	{
 		baseObj.customWait(driver, LandingPage.login, 10);		
-		baseObj.moveToElement(driver, LandingPage.login);	
+		baseObj.moveToElement(driver, LandingPage.login);
 	}
 
 	@When("^user hovers on SpiceCash/SpiceClub Members$")
@@ -91,22 +95,12 @@ public class SpiceJet_Special_Club_Member_login
 	{		
 		LoginPage.loginBtn.click();
 	}
-	@Then("^user portal should display with word Welcome$")
-	public void user_portal_should_display()
+	@Then("^Alert message should display$")
+	public void Alert_message_should_display()
 	{
-		baseObj.customWait(driver, LoginPage.msg, 10);
-		Assert.assertEquals(LoginPage.msg.getText(), "Welcome");
-	}
-	
-	@When("^user clicks on logout$")
-	public void user_clicks_on_logout()
-	{
-		LoginPage.logout.click();
-	}
-
-	@Then("^user should logout$")
-	public void user_should_logout()
-	{
-		Assert.assertTrue(LoginPage.Login.isDisplayed());
+		baseObj.customWait(driver, LoginPage.alertMsg, 10);
+		Assert.assertTrue(LoginPage.alertMsg.isDisplayed());
+		
 	}
 }
+

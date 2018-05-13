@@ -5,10 +5,13 @@ import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
 
 @RunWith(Cucumber.class)
-@CucumberOptions(
-		plugin= {"pretty","html:target/cucumber-html-report", "json:target/cucumber.json"}, strict = true, monochrome = true,
+@CucumberOptions
+(
+		plugin= {"pretty","html:target/cucumber-html-report", "json:target/cucumber.json"}, 
+		strict = true, 
+		monochrome = true,
 		features="src/test/java"
-		)
+)
 
 public class RunCucumberTest {
 

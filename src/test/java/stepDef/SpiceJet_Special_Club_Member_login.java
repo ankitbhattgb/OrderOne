@@ -25,6 +25,7 @@ public class SpiceJet_Special_Club_Member_login
 	public WebDriver driver;
 	base baseObj =new base();
 
+	
 	@Before
 	public void setUp() throws IOException
 	{

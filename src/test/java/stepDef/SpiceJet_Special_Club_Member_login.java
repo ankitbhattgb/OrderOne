@@ -48,8 +48,8 @@ public class SpiceJet_Special_Club_Member_login
 	public void user_is_onlandingpage() throws IOException 
 	{
 		driver.get("http://spicejet.com");
-		String filename=baseObj.takeScreenshot(driver);
 		baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takeScreenshot(driver);
 		baseObj.addImgToPDF(filename);
 
 	}

@@ -28,6 +28,8 @@ import com.itextpdf.kernel.pdf.PdfDocument;
 import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
+import com.itextpdf.layout.element.List;
+import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
 import junit.framework.Assert;
@@ -36,10 +38,9 @@ import junit.framework.Assert;
 public class base 
 {
 	public WebDriver driver;
-	public PdfWriter writer;
-	public PdfDocument pdf;
-	public Document document;
-
+	PdfWriter Writer;
+	PdfDocument pdf;
+	Document document;
 
 	public WebDriver initializeDriver() throws IOException 
 	{
@@ -87,12 +88,15 @@ public class base
 		wait.until(ExpectedConditions.elementToBeClickable(elementID));
 	}
 
+
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
-		new PdfWriter("D:\\"+featureName+".pdf");
-		new PdfDocument(writer);
-		new Document(pdf);
+		String filename="D:\\"+featureName+".pdf";
+		Writer = new PdfWriter(filename);
+		pdf= new PdfDocument(Writer);
+		document = new Document(pdf);
+		
 		document.setMargins(20, 20, 20, 20);
 		document.add(new Paragraph(featureName));
 	}
@@ -105,7 +109,11 @@ public class base
 
 	public void addTextToPDF(String msg)
 	{
-		document.add(new Paragraph (msg));
+		List list = new List()
+			    .setSymbolIndent(12)
+			    .setListSymbol("\u2022");
+    	list.add(new ListItem(msg));
+		document.add(list);
 	}
 	public void closePdf()
 	{

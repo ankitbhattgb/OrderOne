@@ -134,13 +134,13 @@ public class base
 
 
 
-	public void takeScreenshot1(WebDriver localDriver) throws IOException
-	{
-		Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(localDriver);
-
-		ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D://FullPageScreenshot.png"));
-
-	}
+//	public void takeScreenshot1(WebDriver localDriver) throws IOException
+//	{
+//		Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(localDriver);
+//
+//		ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D://FullPageScreenshot.png"));
+//
+//	}
 
 }
 

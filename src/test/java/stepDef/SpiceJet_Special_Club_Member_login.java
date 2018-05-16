@@ -95,7 +95,6 @@ public class SpiceJet_Special_Club_Member_login
 		baseObj.addImgToPDF(filename);
 		LoginPage.userID.clear();
 		LoginPage.userID.sendKeys(userid);
-		baseObj.takeScreenshot1(driver);
 	}
 
 	@When("^user enters password \"([^\"]*)\"$")

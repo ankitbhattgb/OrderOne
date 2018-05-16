@@ -1,12 +1,11 @@
 package stepDef;
 
+import java.awt.AWTException;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -45,65 +44,65 @@ public class SpiceJet_Special_Club_Member_login
 	}
 
 	@Given("^user is on landing page of spice jet$")
-	public void user_is_onlandingpage() throws IOException 
+	public void user_is_onlandingpage() throws IOException, AWTException 
 	{
 		driver.get("http://spicejet.com");
 		baseObj.addTextToPDF("First Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 
 	}
 
 	@When("^user hovers on Login$")
-	public void user_hovers_on_Login() throws IOException
+	public void user_hovers_on_Login() throws IOException, AWTException
 	{
 		baseObj.customWait(driver, LandingPage.login, 10);		
 		baseObj.moveToElement(driver, LandingPage.login);	
 		baseObj.addTextToPDF("Second Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
 
 	@When("^user hovers on SpiceCash/SpiceClub Members$")
-	public void user_hovers_on_SpiceCash() throws IOException
+	public void user_hovers_on_SpiceCash() throws IOException, AWTException
 	{
 		baseObj.customWait(driver, LandingPage.spiceMember, 10);
 		baseObj.moveToElement(driver, LandingPage.spiceMember);		
 		baseObj.addTextToPDF("Third Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
 
 	@When("^user clicks on Member Login$")
-	public void user_clicks_on_Member_Login() throws IOException
+	public void user_clicks_on_Member_Login() throws IOException, AWTException
 	{
 		baseObj.customWait(driver, LandingPage.memberLogin, 10);
 		baseObj.moveToElement(driver, LandingPage.memberLogin);
 		baseObj.addTextToPDF("Fourth Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 		LandingPage.memberLogin.click();
 	}
 
 	@When("^user enters userid \"([^\"]*)\"$")
-	public void user_enters_userid(String userid) throws IOException
+	public void user_enters_userid(String userid) throws IOException, AWTException
 	{
 		baseObj.customWait(driver, LoginPage.loginBtn, 10);		
 		LoginPage.loginBtn.isDisplayed();
 		baseObj.addTextToPDF("fifth Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 		LoginPage.userID.clear();
 		LoginPage.userID.sendKeys(userid);
 	}
 
 	@When("^user enters password \"([^\"]*)\"$")
-	public void user_enters_password(String pwd) throws IOException
+	public void user_enters_password(String pwd) throws IOException, AWTException
 	{		
 		LoginPage.password.clear();
 		LoginPage.password.sendKeys(pwd);
 		baseObj.addTextToPDF("Sixth Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
 
@@ -113,13 +112,14 @@ public class SpiceJet_Special_Club_Member_login
 		LoginPage.loginBtn.click();
 	}
 	@Then("^user portal should display with word Welcome$")
-	public void user_portal_should_display() throws IOException
+	public void user_portal_should_display() throws IOException, AWTException
 	{
 		baseObj.customWait(driver, LoginPage.msg, 10);
 		Assert.assertEquals(LoginPage.msg.getText(), "Welcome");
 		baseObj.addTextToPDF("Seventh Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
+		
 	}
 	
 	@When("^user clicks on logout$")
@@ -129,11 +129,12 @@ public class SpiceJet_Special_Club_Member_login
 	}
 
 	@Then("^user should logout$")
-	public void user_should_logout() throws IOException
+	public void user_should_logout() throws IOException, AWTException
 	{
 		Assert.assertTrue(LoginPage.Login.isDisplayed());	
 		baseObj.addTextToPDF("Eighth Screen");
-		String filename=baseObj.takeScreenshot(driver);
+		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
+		
 	}
 }

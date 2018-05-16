@@ -1,9 +1,13 @@
 package resources;
 
+import java.awt.AWTException;
+import java.awt.Rectangle;
+import java.awt.Robot;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.Date;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -12,7 +16,6 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.Properties;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -32,11 +35,7 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
-import junit.framework.Assert;
 import javax.imageio.ImageIO;
-import ru.yandex.qatools.ashot.AShot;
-import ru.yandex.qatools.ashot.Screenshot;
-import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 public class base 
 {
 	public WebDriver driver;
@@ -90,7 +89,6 @@ public class base
 		wait.until(ExpectedConditions.elementToBeClickable(elementID));
 	}
 
-
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
@@ -117,6 +115,7 @@ public class base
 		list.add(new ListItem(msg));
 		document.add(list);
 	}
+	
 	public void closePdf()
 	{
 		document.close();
@@ -132,15 +131,14 @@ public class base
 	}
 
 
-
-
-//	public void takeScreenshot1(WebDriver localDriver) throws IOException
-//	{
-//		Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(localDriver);
-//
-//		ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D://FullPageScreenshot.png"));
-//
-//	}
-
+	public String  takescreenshot() throws AWTException, IOException
+	{
+		String format =".png";
+		String filename = "D:\\"+(System.currentTimeMillis())+format;
+		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
+		BufferedImage screenFullImage = new Robot().createScreenCapture(screenRect);
+		ImageIO.write(screenFullImage, "png", new File(filename));
+		return filename;
+	}
 }
 

@@ -1,7 +1,9 @@
 package stepDef;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -10,6 +12,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
+
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
@@ -111,7 +114,8 @@ public class SpiceJet_Special_Club_Member_login
 	{
 		Assert.assertTrue(LoginPage.Login.isDisplayed());
 		File src = ((TakesScreenshot)driver).getScreenshotAs(OutputType.FILE);
-		FileUtils.copyFile(src, new File("D://src.png"));
+		FileUtils.copyFile(src, new File("D://" + (System.currentTimeMillis()) + ".png"));
+		
 
 	}
 }

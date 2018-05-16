@@ -33,8 +33,10 @@ import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
 import junit.framework.Assert;
-
-
+import javax.imageio.ImageIO;
+import ru.yandex.qatools.ashot.AShot;
+import ru.yandex.qatools.ashot.Screenshot;
+import ru.yandex.qatools.ashot.shooting.ShootingStrategies;
 public class base 
 {
 	public WebDriver driver;
@@ -96,7 +98,7 @@ public class base
 		Writer = new PdfWriter(filename);
 		pdf= new PdfDocument(Writer);
 		document = new Document(pdf);
-		
+
 		document.setMargins(20, 20, 20, 20);
 		document.add(new Paragraph(featureName));
 	}
@@ -110,9 +112,9 @@ public class base
 	public void addTextToPDF(String msg)
 	{
 		List list = new List()
-			    .setSymbolIndent(12)
-			    .setListSymbol("\u2022");
-    	list.add(new ListItem(msg));
+				.setSymbolIndent(12)
+				.setListSymbol("\u2022");
+		list.add(new ListItem(msg));
 		document.add(list);
 	}
 	public void closePdf()
@@ -129,4 +131,16 @@ public class base
 		return filename;
 	}
 
+
+
+
+	public void takeScreenshot1(WebDriver localDriver) throws IOException
+	{
+		Screenshot fpScreenshot = new AShot().shootingStrategy(ShootingStrategies.viewportPasting(1000)).takeScreenshot(localDriver);
+
+		ImageIO.write(fpScreenshot.getImage(),"PNG",new File("D://FullPageScreenshot.png"));
+
+	}
+
 }
+

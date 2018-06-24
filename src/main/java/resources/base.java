@@ -115,12 +115,14 @@ public class base
 		list.add(new ListItem(msg));
 		document.add(list);
 	}
-	
+
+	/*Cl*/
 	public void closePdf()
 	{
 		document.close();
 	}
 
+	/* Taking screen shot using webdriver object*/
 	public String takeScreenshot(WebDriver localDriver) throws IOException
 	{	
 		String format=".png";
@@ -130,7 +132,7 @@ public class base
 		return filename;
 	}
 
-
+	/* Taking screen shot using ROBOT class*/
 	public String  takescreenshot() throws AWTException, IOException
 	{
 		String format =".png";

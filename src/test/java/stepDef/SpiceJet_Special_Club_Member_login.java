@@ -24,14 +24,14 @@ public class SpiceJet_Special_Club_Member_login
 	
 	@Before
 	public void setUp() throws IOException
-	{
+	{	
 		String className = this.getClass().getSimpleName();
 		driver=baseObj.initializeDriver();
 		baseObj.initializePDF(className);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		PageFactory.initElements(driver, LandingPage.class);
-		PageFactory.initElements(driver, LoginPage.class);
+		PageFactory.initElements(driver, LoginPage.class);		
 	}
 
 	@After

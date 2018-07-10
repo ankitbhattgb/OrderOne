@@ -6,19 +6,15 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.Scenario;
 import pageObjects.LandingPage;
 import pageObjects.LoginPage;
-import pageObjects.Select;
 import resources.base;
-
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -55,8 +51,6 @@ public class SpiceJet_Special_Club_Member_login
 	@Given("^user is on landing page of spice jet$")
 	public void user_is_onlandingpage() throws IOException, AWTException 
 	{
-		
-		System.out.println(scenario);
 		driver.get("http://spicejet.com");
 		baseObj.addTextToPDF("First Screen");
 		String filename=baseObj.takescreenshot();

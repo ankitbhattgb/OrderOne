@@ -11,7 +11,7 @@ import cucumber.api.junit.Cucumber;
 		strict = true, 
 		monochrome = true,
 		features="src/test/java",
-		tags= {"@SmokeTest"}
+		tags= {"@RegressionTest"}
 )
 
 public class RunCucumberTest {

@@ -1,5 +1,5 @@
 Feature: Login to Spicejet webiste using special club member credentials
-
+@SmokeTest
   Scenario Outline: User login with club member
     Given user is on landing page of spice jet
     When user hovers on Login

@@ -191,6 +191,7 @@ public class SpiceJet_Special_Club_Member_login
 		while(!result)
 		{
 			LandingPage.nextMonth.click();
+			System.out.println("insidewhile");
 			onScreenDate = LandingPage.onScreenDate.getText();
 			result = splitMonth.equalsIgnoreCase(onScreenDate);
 		} 

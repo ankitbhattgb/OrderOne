@@ -1,5 +1,5 @@
 Feature: Book a oneway filght
-
+@SmokeTest @RegressionTest
   Scenario Outline: book flight
     Given user is on landing page of spice jet
     When user hovers on Login

@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -35,6 +36,8 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
+import pageObjects.LandingPage;
+
 import javax.imageio.ImageIO;
 public class base 
 {
@@ -43,6 +46,7 @@ public class base
 	PdfDocument pdf;
 	Document document;
 
+	/* **************************************  Initialize a WebDriver ************************************** */
 	public WebDriver initializeDriver() throws IOException 
 	{
 		//Getting data file
@@ -75,7 +79,7 @@ public class base
 	} 	
 
 
-	/*below method will move your mouse to particular element on screen */	
+	/* *********** below method will move your mouse to particular element on screen **************************** */	
 
 	public void moveToElement(WebDriver localDriver, WebElement elementId) 
 	{
@@ -89,10 +93,11 @@ public class base
 		wait.until(ExpectedConditions.elementToBeClickable(elementID));
 	}
 
+	/* ****************************************** Initialize a PDF ********************************************* */
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
-		String filename="D:\\"+featureName+".pdf";
+		String filename="D:\\"+featureName+System.currentTimeMillis()+".pdf";
 		Writer = new PdfWriter(filename);
 		pdf= new PdfDocument(Writer);
 		document = new Document(pdf);
@@ -101,12 +106,14 @@ public class base
 		document.add(new Paragraph(featureName));
 	}
 
+	/* ******************************************* Add IMG to PDF ********************************************** */
 	public void addImgToPDF(String filename) throws MalformedURLException
 	{
 		Image img= new Image(ImageDataFactory.create(filename));
 		document.add(img);
 	}
 
+	/* ******************************************* Add Text to PDF ********************************************** */
 	public void addTextToPDF(String msg)
 	{
 		List list = new List()
@@ -116,13 +123,15 @@ public class base
 		document.add(list);
 	}
 
-	/*Cl*/
+
+	/* ************************************************ Close PDF *********************************************** */	
 	public void closePdf()
 	{
 		document.close();
 	}
 
-	/* Taking screen shot using webdriver object*/
+
+	/* ******************************** Taking screen shot using WebDriver object ******************************* */
 	public String takeScreenshot(WebDriver localDriver) throws IOException
 	{	
 		String format=".png";
@@ -132,7 +141,8 @@ public class base
 		return filename;
 	}
 
-	/* Taking screen shot using ROBOT class*/
+	/* ********************************** Taking screen shot using ROBOT class ********************************** */
+
 	public String  takescreenshot() throws AWTException, IOException
 	{
 		String format =".png";
@@ -142,5 +152,145 @@ public class base
 		ImageIO.write(screenFullImage, "png", new File(filename));
 		return filename;
 	}
+
+	/* ************************************** Select a day from Calendar ************************************** */
+	public void selectday(WebDriver localDriver, String elementPath, String departDay)
+	{
+		WebElement day = localDriver.findElement(By.xpath(elementPath));
+		int count = day.findElements(By.xpath(elementPath)).size();
+		for(int i=1;i<=count;i++)
+		{
+			String dtext= day.findElements(By.xpath(elementPath)).get(i).getText();
+			if (dtext.contains(departDay))
+			{
+				day.findElements(By.xpath(elementPath)).get(i).click();
+				break;
+			}
+		}
+	}
+
+	/* ********************************** Add single quote to a string ********************************** */	
+	public String singleQuote(String s) {
+
+		return new StringBuilder()
+				.append('\'')
+				.append(s)
+				.append('\'')
+				.toString();
+	}
+	/* ********************************** Add double quote to a string ********************************** */	
+	public String doubleQuote(String s) {
+
+		return new StringBuilder()
+				.append("\"")
+				.append(s)
+				.append("\"")
+				.toString();
+	}
+
+	/* ********************************** convert a month to a numeric value ****************************** */	
+	public int getMonthNumber(String str) 
+	{
+		if (str.equalsIgnoreCase("january"))
+		{
+			return 1;
+		}
+		else if (str.equalsIgnoreCase("february"))
+		{
+			return 2;
+		}
+		else if (str.equalsIgnoreCase("march"))
+		{
+			return 3;
+		}
+		else if (str.equalsIgnoreCase("april"))
+		{
+			return 4;
+		}		
+		else if (str.equalsIgnoreCase("may"))
+		{
+			return 5;
+		}
+		else if (str.equalsIgnoreCase("june"))
+		{
+			return 6;
+		}
+		else if (str.equalsIgnoreCase("july"))
+		{
+			return 7;
+		}
+		else if (str.equalsIgnoreCase("august"))
+		{
+			return 8;
+		}
+		else if (str.equalsIgnoreCase("september"))
+		{
+			return 9;
+		}
+		else if (str.equalsIgnoreCase("october"))
+		{
+			return 10;
+		}
+		else if (str.equalsIgnoreCase("november"))
+		{
+			return 11;
+		}
+		else if (str.equalsIgnoreCase("december"))
+		{
+			return 12;
+		}
+		else if (str.equalsIgnoreCase("jan"))
+		{
+			return 1;
+		}
+		else if (str.equalsIgnoreCase("feb"))
+		{
+			return 2;
+		}
+		else if (str.equalsIgnoreCase("mar"))
+		{
+			return 3;
+		}
+		else if (str.equalsIgnoreCase("apr"))
+		{
+			return 4;
+		}		
+		else if (str.equalsIgnoreCase("may"))
+		{
+			return 5;
+		}
+		else if (str.equalsIgnoreCase("jun"))
+		{
+			return 6;
+		}
+		else if (str.equalsIgnoreCase("jul"))
+		{
+			return 7;
+		}
+		else if (str.equalsIgnoreCase("aug"))
+		{
+			return 8;
+		}
+		else if (str.equalsIgnoreCase("sep"))
+		{
+			return 9;
+		}
+		else if (str.equalsIgnoreCase("oct"))
+		{
+			return 10;
+		}
+		else if (str.equalsIgnoreCase("nov"))
+		{
+			return 11;
+		}
+		else if (str.equalsIgnoreCase("dec"))
+		{
+			return 12;
+		}
+		else 
+		{
+			return 0;
+		}
+	}	
 }
 

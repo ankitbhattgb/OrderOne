@@ -15,6 +15,7 @@ import org.openqa.selenium.TakesScreenshot;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.Date;
 import java.util.Properties;
 
 import org.openqa.selenium.WebDriver;
@@ -36,8 +37,6 @@ import com.itextpdf.layout.element.List;
 import com.itextpdf.layout.element.ListItem;
 import com.itextpdf.layout.element.Paragraph;
 
-import pageObjects.LandingPage;
-
 import javax.imageio.ImageIO;
 public class base 
 {
@@ -45,6 +44,7 @@ public class base
 	PdfWriter Writer;
 	PdfDocument pdf;
 	Document document;
+	
 
 	/* **************************************  Initialize a WebDriver ************************************** */
 	public WebDriver initializeDriver() throws IOException 
@@ -55,28 +55,37 @@ public class base
 		prop.load(fis);
 
 		String browserName= prop.getProperty("browser");
-		if (browserName.equals("chrome"))
+		if (browserName.equalsIgnoreCase("chrome"))
 		{	
 			System.setProperty("webdriver.chrome.driver", "D://Drivers//chromedriver.exe");
 			driver = new ChromeDriver();
 		}
-		else if (browserName.equals("firefox"))
+		else if (browserName.equalsIgnoreCase("firefox"))
 		{
 			System.setProperty("webdriver.gecko.driver", "D://Drivers//geckodriver.exe");
 			driver = new FirefoxDriver();	
 		}
-		else if (browserName.equals("ie"))
+		else if (browserName.equalsIgnoreCase("ie"))
 		{
 			System.setProperty("webdriver.ie.driver", "D://Drivers//IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 		}
-		else if (browserName.equals("edge"))
+		else if (browserName.equalsIgnoreCase("edge"))
 		{
 			System.setProperty("webdriver.edge.driver", "D://Drivers//MicrosoftWebDriver.exe");
 			driver = new EdgeDriver();
 		}
 		return driver;
 	} 	
+	/* *********** return System current date with timestamp and timezone **************************** */	
+
+	public static String currentSystemDateAndTime()
+	{
+		Date d = new Date();
+		String currDate=d.toString();
+		currDate=currDate.replace(":", "-");
+		return currDate;
+	}
 
 
 	/* *********** below method will move your mouse to particular element on screen **************************** */	
@@ -87,25 +96,38 @@ public class base
 		action.moveToElement(elementId).perform();
 	}
 
-	public void customWait(WebDriver localDriver, WebElement elementID, int w)
-	{
-		WebDriverWait wait = new WebDriverWait(localDriver, w);
-		wait.until(ExpectedConditions.elementToBeClickable(elementID));
-	}
+	/* *********** below method will wait for an element to be clickable **************************** */
+	//	public void customWait(WebDriver localDriver, WebElement elementID, int w)
+	//	{
+	//		WebDriverWait wait = new WebDriverWait(localDriver, w);
+	//		wait.until(ExpectedConditions.elementToBeClickable(elementID));
+	//	}
 
 	/* ****************************************** Initialize a PDF ********************************************* */
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
-		String filename="D:\\"+featureName+System.currentTimeMillis()+".pdf";
+		String filename="D:\\"+featureName+currentSystemDateAndTime()+".pdf";
 		Writer = new PdfWriter(filename);
 		pdf= new PdfDocument(Writer);
 		document = new Document(pdf);
-
-		document.setMargins(20, 20, 20, 20);
+		document.setMargins(10, 20, 10, 20);
 		document.add(new Paragraph(featureName));
 	}
 
+	/* ******************************************* Delete files ********************************************** */
+	public void deleteFiles(String extn)
+	{
+		File file = new File("D://");
+		File[] files = file.listFiles();
+		for(File f: files)
+		{
+			if (f.getName().endsWith(extn))
+			{
+				f.delete();
+			}
+		}	
+	}
 	/* ******************************************* Add IMG to PDF ********************************************** */
 	public void addImgToPDF(String filename) throws MalformedURLException
 	{
@@ -135,7 +157,7 @@ public class base
 	public String takeScreenshot(WebDriver localDriver) throws IOException
 	{	
 		String format=".png";
-		String filename= "D:\\"+(System.currentTimeMillis())+format;
+		String filename= "D:\\"+currentSystemDateAndTime()+format;
 		File src = ((TakesScreenshot)localDriver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(src, new File(filename));
 		return filename;
@@ -146,7 +168,7 @@ public class base
 	public String  takescreenshot() throws AWTException, IOException
 	{
 		String format =".png";
-		String filename = "D:\\"+(System.currentTimeMillis())+format;
+		String filename = "D:\\"+currentSystemDateAndTime()+format;
 		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 		BufferedImage screenFullImage = new Robot().createScreenCapture(screenRect);
 		ImageIO.write(screenFullImage, "png", new File(filename));

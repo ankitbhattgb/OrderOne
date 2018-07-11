@@ -1,6 +1,7 @@
 package stepDef;
 
 import java.awt.AWTException;
+import cucumber.api.Scenario;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 import org.junit.Assert;
@@ -25,34 +26,35 @@ public class SpiceJet_Special_Club_Member_login
 	public WebDriver driver;
 	base baseObj =new base();
 	public WebDriverWait wait;
-	
+
 	@Before
-	public void setUp() throws IOException
+	public void setUp(Scenario scenario) throws IOException
 	{	
-		String className = this.getClass().getSimpleName();
+		String scenarioName = scenario.getName();
 		driver=baseObj.initializeDriver();
-		
-		baseObj.initializePDF(className);
+		baseObj.initializePDF(scenarioName);
 		driver.manage().window().maximize();
 		driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 		PageFactory.initElements(driver, LandingPage.class);
 		PageFactory.initElements(driver, LoginPage.class);	
-	    wait = new WebDriverWait(driver,10);
+		wait = new WebDriverWait(driver,10);
 	}
-
 	@After
 	public void tearDown()
 	{
 		driver.close();
 		driver.quit();
-		baseObj.closePdf();
+		baseObj.closePdf();		
+		baseObj.deleteFiles(".png");
+		wait=null;
+		baseObj=null;
+		System.gc();
 	}
-
 	@Given("^user is on landing page of spice jet$")
 	public void user_is_onlandingpage() throws IOException, AWTException 
 	{
 		driver.get("http://spicejet.com");
-		baseObj.addTextToPDF("First Screen");
+		//baseObj.addTextToPDF("First Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 
@@ -60,10 +62,10 @@ public class SpiceJet_Special_Club_Member_login
 
 	@When("^user hovers on Login$")
 	public void user_hovers_on_Login() throws IOException, AWTException
-	{
-		baseObj.customWait(driver, LandingPage.login, 10);		
+	{		
+		wait.until(ExpectedConditions.elementToBeClickable(LandingPage.login));
 		baseObj.moveToElement(driver, LandingPage.login);	
-		baseObj.addTextToPDF("Second Screen");
+		//baseObj.addTextToPDF("Second Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
@@ -71,19 +73,18 @@ public class SpiceJet_Special_Club_Member_login
 	@When("^user hovers on SpiceCash/SpiceClub Members$")
 	public void user_hovers_on_SpiceCash() throws IOException, AWTException
 	{
-		baseObj.customWait(driver, LandingPage.spiceMember, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(LandingPage.spiceMember));
 		baseObj.moveToElement(driver, LandingPage.spiceMember);		
-		baseObj.addTextToPDF("Third Screen");
+		//baseObj.addTextToPDF("Third Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
-
 	@When("^user clicks on Member Login$")
 	public void user_clicks_on_Member_Login() throws IOException, AWTException
 	{
-		baseObj.customWait(driver, LandingPage.memberLogin, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(LandingPage.memberLogin));
 		baseObj.moveToElement(driver, LandingPage.memberLogin);
-		baseObj.addTextToPDF("Fourth Screen");
+		//baseObj.addTextToPDF("Fourth Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 		LandingPage.memberLogin.click();
@@ -92,9 +93,9 @@ public class SpiceJet_Special_Club_Member_login
 	@When("^user enters userid \"([^\"]*)\"$")
 	public void user_enters_userid(String userid) throws IOException, AWTException
 	{
-		baseObj.customWait(driver, LoginPage.loginBtn, 10);		
+		wait.until(ExpectedConditions.elementToBeClickable(LoginPage.loginBtn));
 		LoginPage.loginBtn.isDisplayed();
-		baseObj.addTextToPDF("fifth Screen");
+		//baseObj.addTextToPDF("fifth Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 		LoginPage.userID.clear();
@@ -106,7 +107,7 @@ public class SpiceJet_Special_Club_Member_login
 	{		
 		LoginPage.password.clear();
 		LoginPage.password.sendKeys(pwd);
-		baseObj.addTextToPDF("Sixth Screen");
+		//baseObj.addTextToPDF("Sixth Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
@@ -120,12 +121,11 @@ public class SpiceJet_Special_Club_Member_login
 	@Then("^user portal should display with word Welcome$")
 	public void user_portal_should_display() throws IOException, AWTException
 	{
-		baseObj.customWait(driver, LoginPage.msg, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(LoginPage.msg));
 		Assert.assertEquals(LoginPage.msg.getText(), "Welcome");
-		baseObj.addTextToPDF("Seventh Screen");
+		//baseObj.addTextToPDF("Seventh Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
-
 	}
 
 	@When("^user clicks on logout$")
@@ -136,24 +136,32 @@ public class SpiceJet_Special_Club_Member_login
 
 	@Then("^user should logout$")
 	public void user_should_logout() throws IOException, AWTException
-	{
-		Assert.assertTrue(LoginPage.Login.isDisplayed());	
-		baseObj.addTextToPDF("Eighth Screen");
+	{		
+		Assert.assertTrue(LoginPage.Login.isDisplayed());
+		//baseObj.addTextToPDF("Eighth Screen");
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 
 	}
 
 	@When("^user clicks Book link$")
-	public void user_clicks_Book_link()
+	public void user_clicks_Book_link() throws AWTException, IOException
 	{
 		LandingPage.book.click();
+		//baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takescreenshot();
+		baseObj.addImgToPDF(filename);
+
 	}
 
 	@Then("^booking page should display$")
-	public void booking_page_should_display()
+	public void booking_page_should_display() throws AWTException, IOException
 	{
 		Assert.assertTrue(LandingPage.depart.isDisplayed());
+		//baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takescreenshot();
+		baseObj.addImgToPDF(filename);
+
 	}
 	@When("^user clicks on oneway radio button$")
 	public void user_clicks_on_oneway_radio_button()
@@ -162,7 +170,7 @@ public class SpiceJet_Special_Club_Member_login
 	}
 
 	@When("^user selects from city \"([^\"]*)\" and to city \"([^\"]*)\"$")
-	public void user_selects_from_city(String fromCity, String toCity)
+	public void user_selects_from_city(String fromCity, String toCity) throws AWTException, IOException
 	{
 		if(fromCity!=toCity)
 		{
@@ -171,15 +179,20 @@ public class SpiceJet_Special_Club_Member_login
 			toCity = baseObj.singleQuote(toCity);
 			driver.findElement(By.xpath("(//a[contains(text(),"+fromCity+")])[1]")).click();
 			driver.findElement(By.xpath("(//a[contains(text(),"+toCity+")])[2]")).click();
+			//baseObj.addTextToPDF("First Screen");
+			String filename=baseObj.takescreenshot();
+			baseObj.addImgToPDF(filename);
+
 		}
 		else
 		{
+			Assert.fail();
 			tearDown();	
 		}
 	}
 
 	@When("^user selects depart date \"([^\"]*)\"$")
-	public void user_selects_depart_date(String departDate)
+	public void user_selects_depart_date(String departDate) throws AWTException, IOException
 	{
 		LandingPage.dateBox.click();
 		String onScreenDate = LandingPage.onScreenDate.getText(); 
@@ -190,17 +203,21 @@ public class SpiceJet_Special_Club_Member_login
 		boolean result = splitMonth.equalsIgnoreCase(onScreenDate);
 		while(!result)
 		{
+			wait.until(ExpectedConditions.visibilityOf(LandingPage.nextMonth));
 			LandingPage.nextMonth.click();
-			System.out.println("insidewhile");
 			onScreenDate = LandingPage.onScreenDate.getText();
 			result = splitMonth.equalsIgnoreCase(onScreenDate);
 		} 
 		String elementPath = "//html//*[@data-month="+cMonthNo+"]//a";	
 		baseObj.selectday(driver,elementPath,splitDate[0]);
+		//baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takescreenshot();
+		baseObj.addImgToPDF(filename);
+
 	}
 
 	@When("^user selects no of pax \"([^\"]*)\"$")
-	public void user_selects_no_of_pax(int noOfPassanger)
+	public void user_selects_no_of_pax(int noOfPassanger) throws AWTException, IOException
 	{	
 		if (noOfPassanger>1)
 		{
@@ -211,17 +228,25 @@ public class SpiceJet_Special_Club_Member_login
 			{
 				LandingPage.adult.click();
 			}
+			//baseObj.addTextToPDF("First Screen");
+			String filename=baseObj.takescreenshot();
+			baseObj.addImgToPDF(filename);
+
 			LandingPage.closePaxOpt.click();
+			
 		}
 	}
 	@When("^user selects currency \"([^\"]*)\"$")
 
-	public void user_selects_currency (String currency)
+	public void user_selects_currency (String currency) throws AWTException, IOException
 	{
 		wait.until(ExpectedConditions.visibilityOf(LandingPage.currency));
 		Select sel = new Select(LandingPage.currency);
 		LandingPage.currency.click();
 		sel.selectByValue(currency);
+		//baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takescreenshot();
+		baseObj.addImgToPDF(filename);
 	}
 	@When("^user clicks on search button$")
 	public void user_clicks_on_search_button()
@@ -229,10 +254,13 @@ public class SpiceJet_Special_Club_Member_login
 		LandingPage.srchFltBtn.click();
 	}
 	@Then("^search result should display$")
-	public void search_result_should_display()
+	public void search_result_should_display() throws AWTException, IOException
 	{
-		baseObj.customWait(driver, LandingPage.modifyBtn, 10);
+		wait.until(ExpectedConditions.elementToBeClickable(LandingPage.modifyBtn));
 		Assert.assertTrue(LandingPage.modifyBtn.isDisplayed());
+		//baseObj.addTextToPDF("First Screen");
+		String filename=baseObj.takescreenshot();
+		baseObj.addImgToPDF(filename);
 	}
 
 

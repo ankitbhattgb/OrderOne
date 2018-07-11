@@ -10,8 +10,8 @@ import cucumber.api.junit.Cucumber;
 		plugin= {"pretty","html:target/cucumber-html-report", "json:target/cucumber.json"}, 
 		strict = true, 
 		monochrome = true,
-		features="src/test/java",
-		tags= {"@RegressionTest"}
+		features="src/test/java"
+		,tags= {"@SmokeTest , @RegressionTest"}
 )
 
 public class RunCucumberTest {

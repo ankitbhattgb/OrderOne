@@ -18,7 +18,7 @@ Feature: Book a oneway filght
     And user selects currency "<currency>"
     And user clicks on search button
     Then search result should display
-
+    
     Examples: 
       | userid       | password  | fromCity | toCity    | departDate        | noOfPassanger | currency |
-      | 918884524888 | Paytm@123 | BLR      | GOI       | 20 September 2018 |             2 | AED      |
+      | 918884524888 | Paytm@123 | BLR      | BLR       | 20 January 2019   |             2 | AED      |

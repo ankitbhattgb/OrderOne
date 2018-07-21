@@ -51,28 +51,33 @@ public class base
 	{
 		//Getting data file
 		Properties prop = new Properties();
-		FileInputStream fis = new FileInputStream("D:\\OrderOne\\src\\main\\java\\resources\\data.properties");
+		FileInputStream fis = new FileInputStream("C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet"
+				+ "\\src\\main\\java\\resources\\data.properties");
 		prop.load(fis);
 
 		String browserName= prop.getProperty("browser");
 		if (browserName.equalsIgnoreCase("chrome"))
 		{	
-			System.setProperty("webdriver.chrome.driver", "D://Drivers//chromedriver.exe");
+			System.setProperty("webdriver.chrome.driver", 
+					"C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 		}
 		else if (browserName.equalsIgnoreCase("firefox"))
 		{
-			System.setProperty("webdriver.gecko.driver", "D://Drivers//geckodriver.exe");
+			System.setProperty("webdriver.gecko.driver", 
+					"C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();	
 		}
 		else if (browserName.equalsIgnoreCase("ie"))
 		{
-			System.setProperty("webdriver.ie.driver", "D://Drivers//IEDriverServer.exe");
+			System.setProperty("webdriver.ie.driver", 
+					"C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 		}
 		else if (browserName.equalsIgnoreCase("edge"))
 		{
-			System.setProperty("webdriver.edge.driver", "D://Drivers//MicrosoftWebDriver.exe");
+			System.setProperty("webdriver.edge.driver", 
+					"C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\drivers\\MicrosoftWebDriver.exe");
 			driver = new EdgeDriver();
 		}
 		return driver;
@@ -87,7 +92,24 @@ public class base
 		return currDate;
 	}
 
-
+	/* *************************************** Return a frame number *************************************** */
+//	public int findFrameNumber(WebDriver localDriver, WebElement By.abc)
+//	{
+//		int i;
+//		int frameCount = localDriver.findElements(By.tagName("iframe")).size();
+//		for (i=0;i<frameCount;i++)
+//		{
+//			driver.switchTo().frame(i);
+//			int count = localDriver.findElements(By.abc).size();
+//			if (count>0)
+//			{
+//				break;
+//			}
+//			
+//		}
+//		localDriver.switchTo().defaultContent();
+//		return i;
+//	}
 	/* *********** below method will move your mouse to particular element on screen **************************** */	
 
 	public void moveToElement(WebDriver localDriver, WebElement elementId) 
@@ -107,7 +129,8 @@ public class base
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
-		String filename="D:\\"+featureName+currentSystemDateAndTime()+".pdf";
+		String filename="C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+						 +featureName+currentSystemDateAndTime()+".pdf";
 		Writer = new PdfWriter(filename);
 		pdf= new PdfDocument(Writer);
 		document = new Document(pdf);
@@ -118,7 +141,7 @@ public class base
 	/* ******************************************* Delete files ********************************************** */
 	public void deleteFiles(String extn)
 	{
-		File file = new File("D://");
+		File file = new File("C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\");
 		File[] files = file.listFiles();
 		for(File f: files)
 		{
@@ -157,7 +180,8 @@ public class base
 	public String takeScreenshot(WebDriver localDriver) throws IOException
 	{	
 		String format=".png";
-		String filename= "D:\\"+currentSystemDateAndTime()+format;
+		String filename= "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+						  +currentSystemDateAndTime()+format;
 		File src = ((TakesScreenshot)localDriver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(src, new File(filename));
 		return filename;
@@ -168,7 +192,8 @@ public class base
 	public String  takescreenshot() throws AWTException, IOException
 	{
 		String format =".png";
-		String filename = "D:\\"+currentSystemDateAndTime()+format;
+		String filename = "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+							+currentSystemDateAndTime()+format;
 		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 		BufferedImage screenFullImage = new Robot().createScreenCapture(screenRect);
 		ImageIO.write(screenFullImage, "png", new File(filename));

@@ -27,6 +27,7 @@ public class SpiceJet_Special_Club_Member_login
 	base baseObj =new base();
 	public WebDriverWait wait;
 
+
 	@Before
 	public void setUp(Scenario scenario) throws IOException
 	{	
@@ -233,7 +234,7 @@ public class SpiceJet_Special_Club_Member_login
 			baseObj.addImgToPDF(filename);
 
 			LandingPage.closePaxOpt.click();
-			
+
 		}
 	}
 	@When("^user selects currency \"([^\"]*)\"$")
@@ -262,11 +263,4 @@ public class SpiceJet_Special_Club_Member_login
 		String filename=baseObj.takescreenshot();
 		baseObj.addImgToPDF(filename);
 	}
-
-
-
-
-
-
-
 }	

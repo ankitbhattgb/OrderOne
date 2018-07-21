@@ -129,7 +129,7 @@ public class base
 	@SuppressWarnings("resource")
 	public void initializePDF(String featureName) throws FileNotFoundException
 	{
-		String filename="C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+		String filename="C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\output\\"
 						 +featureName+currentSystemDateAndTime()+".pdf";
 		Writer = new PdfWriter(filename);
 		pdf= new PdfDocument(Writer);
@@ -139,13 +139,13 @@ public class base
 	}
 
 	/* ******************************************* Delete files ********************************************** */
-	public void deleteFiles(String extn)
+	public void deleteFiles()
 	{
-		File file = new File("C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\");
+		File file = new File("C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\output\\");
 		File[] files = file.listFiles();
 		for(File f: files)
 		{
-			if (f.getName().endsWith(extn))
+			if (f.getName().endsWith(".png"))
 			{
 				f.delete();
 			}
@@ -180,7 +180,7 @@ public class base
 	public String takeScreenshot(WebDriver localDriver) throws IOException
 	{	
 		String format=".png";
-		String filename= "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+		String filename= "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\output\\"
 						  +currentSystemDateAndTime()+format;
 		File src = ((TakesScreenshot)localDriver).getScreenshotAs(OutputType.FILE);
 		FileUtils.copyFile(src, new File(filename));
@@ -192,7 +192,7 @@ public class base
 	public String  takescreenshot() throws AWTException, IOException
 	{
 		String format =".png";
-		String filename = "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\Screenshots\\"
+		String filename = "C:\\Program Files (x86)\\Jenkins\\workspace\\SpiceJet\\output\\"
 							+currentSystemDateAndTime()+format;
 		Rectangle screenRect = new Rectangle(Toolkit.getDefaultToolkit().getScreenSize());
 		BufferedImage screenFullImage = new Robot().createScreenCapture(screenRect);

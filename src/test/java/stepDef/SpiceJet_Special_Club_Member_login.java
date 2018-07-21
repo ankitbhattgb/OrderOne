@@ -46,7 +46,7 @@ public class SpiceJet_Special_Club_Member_login
 		driver.close();
 		driver.quit();
 		baseObj.closePdf();		
-		baseObj.deleteFiles(".png");
+		baseObj.deleteFiles();
 		wait=null;
 		baseObj=null;
 		System.gc();

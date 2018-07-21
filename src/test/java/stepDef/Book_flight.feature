@@ -21,4 +21,4 @@ Feature: Book a oneway filght
     
     Examples: 
       | userid       | password  | fromCity | toCity    | departDate        | noOfPassanger | currency |
-      | 918884524888 | Paytm@123 | BLR      | BLR       | 20 January 2019   |             2 | AED      |
+      | 918884524888 | Paytm@123 | BLR      | GOI       | 20 January 2019   |             2 | AED      |
